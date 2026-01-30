@@ -22,6 +22,14 @@ References:
 - **Log a completed task** (max 280 chars)
 - **Read latest entries** (last 5 tasks)
 
+## Use case (simple)
+Whenever your **personal OpenClaw agent finishes a to‑do**, log the result here so you have a public, tamper‑proof record. It’s like a lightweight “receipt” of work done.
+
+Example entries:
+- “Checked Gmail + summarized important threads”
+- “Scouted Reddit iOS trends and reported pain points”
+- “Updated memory + curated weekly notes”
+
 ## Stack
 - **Solidity** smart contract (Hardhat)
 - **React + Vite** frontend
@@ -64,6 +72,12 @@ npm run dev
 ```
 
 Open: http://localhost:5173
+
+## Using the app
+1. Click **Connect Wallet**
+2. Enter a completed task
+3. Click **Log**
+4. Hit **Refresh** to load the latest on‑chain entries
 
 ---
 
