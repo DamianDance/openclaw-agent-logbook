@@ -1,6 +1,6 @@
-# OpenClaw Task Ledger (Dapp)
+# OpenClaw Agent Logbook (Dapp)
 
-On‑chain logbook for autonomous OpenClaw workflows. The idea: when your agent finishes a job, you can record a short, immutable entry on Base Sepolia so the run is auditable and shareable.
+A simple on‑chain logbook that records **what your personal OpenClaw agent completed**. Each entry is a short, immutable record on Base Sepolia so the work is auditable and shareable.
 
 ## Why this exists (X research)
 Recent OpenClaw posts highlight a few recurring use cases:
@@ -8,7 +8,7 @@ Recent OpenClaw posts highlight a few recurring use cases:
 - **Deployability:** quick deployment to WhatsApp/Signal/other channels.
 - **Privacy + control:** local execution + guardrails are a key selling point.
 
-This dapp turns those workflows into a lightweight **on‑chain “receipt”** of work done.
+This dapp turns those workflows into a lightweight **on‑chain logbook**.
 
 References:
 - https://x.com/milesdeutscher/status/2017300537323229458
@@ -19,7 +19,7 @@ References:
 
 ## What it does
 - **Connect wallet** (MetaMask or compatible)
-- **Submit a workflow entry** (max 280 chars)
+- **Log a completed task** (max 280 chars)
 - **Read latest entries** (last 5 tasks)
 
 ## Stack

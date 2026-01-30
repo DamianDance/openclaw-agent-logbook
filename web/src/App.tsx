@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { BrowserProvider, Contract } from "ethers";
-import { TASK_LEDGER_ABI } from "./abi";
+import { AGENT_LOGBOOK_ABI } from "./abi";
 
 const BASE_SEPOLIA = {
   chainIdHex: "0x14a34", // 84532
@@ -12,8 +12,8 @@ const BASE_SEPOLIA = {
 };
 
 type Task = {
-  text: string;
-  sender: string;
+  task: string;
+  agent: string;
   timestamp: number;
 };
 
@@ -83,13 +83,13 @@ export default function App() {
     if (!provider || !contractAddress) return;
     setLoading(true);
     try {
-      const contract = new Contract(contractAddress, TASK_LEDGER_ABI, provider);
-      const count = await contract.taskCount();
+      const contract = new Contract(contractAddress, AGENT_LOGBOOK_ABI, provider);
+      const count = await contract.entryCount();
       const total = Number(count);
       const items: Task[] = [];
       for (let i = total - 1; i >= 0 && items.length < 5; i--) {
-        const [text, sender, timestamp] = await contract.tasks(i);
-        items.push({ text, sender, timestamp: Number(timestamp) });
+        const [task, agent, timestamp] = await contract.entries(i);
+        items.push({ task, agent, timestamp: Number(timestamp) });
       }
       setTasks(items);
     } catch (e: any) {
@@ -107,8 +107,8 @@ export default function App() {
     try {
       await ensureBaseSepolia();
       const signer = await provider.getSigner();
-      const contract = new Contract(contractAddress, TASK_LEDGER_ABI, signer);
-      const tx = await contract.addTask(taskText.trim());
+      const contract = new Contract(contractAddress, AGENT_LOGBOOK_ABI, signer);
+      const tx = await contract.logTask(taskText.trim());
       setStatus(`Submitted. Tx: ${tx.hash}`);
       await tx.wait();
       setTaskText("");
@@ -129,8 +129,8 @@ export default function App() {
     <div className="page">
       <header className="header">
         <div>
-          <h1>OpenClaw Task Ledger</h1>
-          <p className="sub">On‑chain logbook for autonomous workflows (Base Sepolia).</p>
+          <h1>OpenClaw Agent Logbook</h1>
+          <p className="sub">On‑chain record of what your personal agent completed (Base Sepolia).</p>
         </div>
         <button className="btn" onClick={connect}>
           {account ? `Connected: ${account.slice(0, 6)}…${account.slice(-4)}` : "Connect Wallet"}
@@ -138,16 +138,16 @@ export default function App() {
       </header>
 
       <section className="card">
-        <h2>Submit a task</h2>
-        <p className="muted">Use this to record an autonomous OpenClaw run (e.g., “Check Gmail + summarize”).</p>
+        <h2>Log a completed task</h2>
+        <p className="muted">Store what your personal agent finished (e.g., “Checked Gmail + summarized”).</p>
         <div className="row">
           <input
             value={taskText}
             onChange={(e) => setTaskText(e.target.value)}
-            placeholder="Describe the task (max 280 chars)"
+            placeholder="What did your agent complete? (max 280 chars)"
           />
           <button className="btn" onClick={submitTask} disabled={sending || !taskText.trim()}>
-            {sending ? "Submitting…" : "Submit"}
+            {sending ? "Logging…" : "Log"}
           </button>
         </div>
         {status && <p className="status">{status}</p>}
@@ -168,10 +168,10 @@ export default function App() {
         <ul className="list">
           {tasks.length === 0 && <li className="muted">No tasks yet.</li>}
           {tasks.map((t, idx) => (
-            <li key={`${t.sender}-${t.timestamp}-${idx}`}>
-              <div className="task-text">{t.text}</div>
+            <li key={`${t.agent}-${t.timestamp}-${idx}`}>
+              <div className="task-text">{t.task}</div>
               <div className="task-meta">
-                <span>{t.sender.slice(0, 6)}…{t.sender.slice(-4)}</span>
+                <span>{t.agent.slice(0, 6)}…{t.agent.slice(-4)}</span>
                 <span>{new Date(t.timestamp * 1000).toLocaleString()}</span>
               </div>
             </li>
@@ -180,7 +180,7 @@ export default function App() {
       </section>
 
       <footer className="footer">
-        <p>OpenClaw Task Ledger — built for transparent agent workflows.</p>
+        <p>OpenClaw Agent Logbook — transparent history for personal agent work.</p>
       </footer>
     </div>
   );

@@ -1,24 +1,24 @@
-export const TASK_LEDGER_ABI = [
+export const AGENT_LOGBOOK_ABI = [
   {
-    "inputs": [{ "internalType": "string", "name": "text", "type": "string" }],
-    "name": "addTask",
+    "inputs": [{ "internalType": "string", "name": "task", "type": "string" }],
+    "name": "logTask",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "taskCount",
+    "name": "entryCount",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "tasks",
+    "name": "entries",
     "outputs": [
-      { "internalType": "string", "name": "text", "type": "string" },
-      { "internalType": "address", "name": "sender", "type": "address" },
+      { "internalType": "string", "name": "task", "type": "string" },
+      { "internalType": "address", "name": "agent", "type": "address" },
       { "internalType": "uint256", "name": "timestamp", "type": "uint256" }
     ],
     "stateMutability": "view",
@@ -28,11 +28,11 @@ export const TASK_LEDGER_ABI = [
     "anonymous": false,
     "inputs": [
       { "indexed": true, "internalType": "uint256", "name": "index", "type": "uint256" },
-      { "indexed": true, "internalType": "address", "name": "sender", "type": "address" },
-      { "indexed": false, "internalType": "string", "name": "text", "type": "string" },
+      { "indexed": true, "internalType": "address", "name": "agent", "type": "address" },
+      { "indexed": false, "internalType": "string", "name": "task", "type": "string" },
       { "indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256" }
     ],
-    "name": "TaskAdded",
+    "name": "TaskLogged",
     "type": "event"
   }
 ] as const;

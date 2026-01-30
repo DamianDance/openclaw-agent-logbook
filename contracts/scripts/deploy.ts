@@ -1,12 +1,12 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const TaskLedger = await ethers.getContractFactory("TaskLedger");
-  const taskLedger = await TaskLedger.deploy();
-  await taskLedger.waitForDeployment();
+  const AgentLogbook = await ethers.getContractFactory("AgentLogbook");
+  const agentLogbook = await AgentLogbook.deploy();
+  await agentLogbook.waitForDeployment();
 
-  const address = await taskLedger.getAddress();
-  console.log("TaskLedger deployed to:", address);
+  const address = await agentLogbook.getAddress();
+  console.log("AgentLogbook deployed to:", address);
 }
 
 main().catch((error) => {
