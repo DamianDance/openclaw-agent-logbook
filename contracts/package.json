@@ -1,0 +1,19 @@
+{
+  "name": "openclaw-task-ledger-contracts",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:sepolia": "hardhat run scripts/deploy.ts --network baseSepolia"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.22.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "@types/node": "^22.10.1"
+  }
+}
